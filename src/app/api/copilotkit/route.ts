@@ -27,7 +27,7 @@ const researchAction: Action<any> = {
   },
 };
 
-export const runtime = "edge";
+// export const runtime = "edge";
 
 export async function POST(req: Request): Promise<Response> {
 
