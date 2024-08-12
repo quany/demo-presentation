@@ -1,9 +1,10 @@
-// import {
-//   CopilotRuntime,
-//   copilotRuntimeNextJSAppRouterEndpoint,
-//   OpenAIAdapter,
-// } from "@copilotkit/runtime";
+import {
+  CopilotRuntime,
+  copilotRuntimeNextJSAppRouterEndpoint,
+  OpenAIAdapter,
+} from "@copilotkit/runtime";
 import { Action } from "@copilotkit/shared";
+import { URL } from 'url';
 import { researchWithLangGraph } from "./research";
 
 const UNSPLASH_ACCESS_KEY_ENV = "UNSPLASH_ACCESS_KEY";
@@ -98,10 +99,10 @@ const researchAction: Action<any> = {
 //   return handleRequest(req);
 // };
 
-import { CopilotRuntime, OpenAIAdapter } from "@copilotkit/backend";
-import OpenAI from "openai";
+// import { CopilotRuntime, OpenAIAdapter } from "@copilotkit/backend";
+// import OpenAI from "openai";
 
-const openai = new OpenAI();
+// const openai = new OpenAI();
 
 export async function POST(req: Request): Promise<Response> {
 
@@ -148,7 +149,18 @@ export async function POST(req: Request): Promise<Response> {
   ) {
     actions.push(researchAction);
   }
-  const serviceAdapter = new OpenAIAdapter({ openai });
-  const copilotKit = new CopilotRuntime({ actions });
-  return copilotKit.response(req, serviceAdapter);
+  // const serviceAdapter = new OpenAIAdapter({ openai });
+  // const copilotKit = new CopilotRuntime({ actions });
+  // return copilotKit.response(req, serviceAdapter);
+
+  const endpoint = new URL(req.url).pathname;
+
+  const { handleRequest } = copilotRuntimeNextJSAppRouterEndpoint({
+    runtime: new CopilotRuntime({ actions }),
+    serviceAdapter: new OpenAIAdapter({ model: process.env["OPENAI_MODEL"] }),
+    endpoint,
+    // baseUrl: 'https://api.openai-proxy.com/v1',
+  });
+
+  return handleRequest(req);
 }
