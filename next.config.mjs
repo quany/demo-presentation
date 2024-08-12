@@ -5,7 +5,8 @@ const nextConfig = {
       {
         // matching all API routes
         // https://vercel.com/guides/how-to-enable-cors
-        source: '/api/copilotkit',
+        // source: '/api/copilotkit',
+        source: '/api/:path*',
         headers: [
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
           { key: 'Access-Control-Allow-Origin', value: '*' },
