@@ -80,7 +80,7 @@ export const POST = async (req: NextRequest) => {
     runtime: new CopilotRuntime({ actions }),
     serviceAdapter: new OpenAIAdapter({ model: openaiModel }),
     endpoint: req.nextUrl.pathname,
-    baseUrl: 'https://api.openai-proxy.com/v1',
+    // baseUrl: 'https://api.openai-proxy.com/v1',
   });
 
   return handleRequest(req);
