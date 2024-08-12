@@ -1,5 +1,5 @@
 /**
- * This is a port of GPT Newspaper to LangGraph JS, adapted from the original Python code.
+ * 这是 GPT Newspaper 移植到 LangGraph JS 的代码，改编自原始的 Python 代码。
  *
  * https://github.com/assafelovic/gpt-newspaper
  */
@@ -19,7 +19,7 @@ interface AgentState {
 function model() {
   return new ChatOpenAI({
     temperature: 0,
-    modelName: "gpt-3.5-turbo-0125",
+    modelName: process.env["OPENAI_MODEL"],
   });
 }
 
@@ -30,13 +30,13 @@ async function search(state: {
     k: 10,
   });
   let topic = state.agentState.topic;
-  // must be at least 5 characters long
+  // 必须至少有5个字符长
   if (topic.length < 5) {
-    topic = "topic: " + topic;
+    topic = "主题: " + topic;
   }
-  console.log("searching for topic:", topic);
+  console.log("搜索主题：", topic);
   const docs = await retriever.getRelevantDocuments(topic);
-  console.log("search result length:", docs.length);
+  console.log("搜索结果长度：", docs.length);
   return {
     agentState: {
       ...state.agentState,
@@ -48,23 +48,23 @@ async function search(state: {
 async function curate(state: {
   agentState: AgentState;
 }): Promise<{ agentState: AgentState }> {
-  console.log("curating search results");
+  console.log("整理搜索结果");
   const response = await model().invoke(
     [
       new SystemMessage(
-        `You are a personal newspaper editor. 
-         Your sole task is to return a list of URLs of the 5 most relevant articles for the provided topic or query as a JSON list of strings
-         in this format:
+        `你是一个私人报纸编辑。 
+         你的唯一任务是返回与提供的主题或查询最相关的5篇文章的URL列表，该列表应为JSON字符串
+         格式如下：
          {
           urls: ["url1", "url2", "url3", "url4", "url5"]
          }
          .`.replace(/\s+/g, " ")
       ),
       new HumanMessage(
-        `Today's date is ${new Date().toLocaleDateString("en-GB")}.
-       Topic or Query: ${state.agentState.topic}
+        `今天的日期是 ${new Date().toLocaleDateString("en-GB")}.
+       主题或查询: ${state.agentState.topic}
        
-       Here is a list of articles:
+       这里有一份文章列表：
        ${state.agentState.searchResults}`.replace(/\s+/g, " ")
       ),
     ],
@@ -79,7 +79,7 @@ async function curate(state: {
   const newSearchResults = searchResults.filter((result: any) => {
     return urls.includes(result.metadata.source);
   });
-  console.log("curated search results:", newSearchResults);
+  console.log("整理后的搜索结果：", newSearchResults);
   return {
     agentState: {
       ...state.agentState,
@@ -91,33 +91,32 @@ async function curate(state: {
 async function critique(state: {
   agentState: AgentState;
 }): Promise<{ agentState: AgentState }> {
-  console.log("critiquing article");
+  console.log("评论文章");
   let feedbackInstructions = "";
   if (state.agentState.critique) {
     feedbackInstructions =
-      `The writer has revised the article based on your previous critique: ${state.agentState.critique}
-       The writer might have left feedback for you encoded between <FEEDBACK> tags.
-       The feedback is only for you to see and will be removed from the final article.
+      `作者已经根据你之前的评论修改了文章: ${state.agentState.critique}
+       作者可能在<FEEDBACK>标签之间留下了给你的反馈。
+       这些反馈仅供你查看，将会从最终文章中删除。
     `.replace(/\s+/g, " ");
   }
   const response = await model().invoke([
     new SystemMessage(
-      `You are a personal newspaper writing critique. Your sole purpose is to provide short feedback on a written 
-      article so the writer will know what to fix.       
-      Today's date is ${new Date().toLocaleDateString("en-GB")}
-      Your task is to provide a really short feedback on the article only if necessary.
-      if you think the article is good, please return [DONE].
-      you can provide feedback on the revised article or just
-      return [DONE] if you think the article is good.
-      Please return a string of your critique or [DONE].`.replace(/\s+/g, " ")
+      `你是一个私人报纸写作评论家。你的唯一任务是对写好的文章提供简短的反馈， 
+      这样作者就知道需要修正什么。       
+      今天的日期是 ${new Date().toLocaleDateString("en-GB")}
+      你的任务是只在必要时对文章提供非常简短的反馈。
+      如果你认为文章很好，请返回[DONE]。
+      你可以对修改后的文章提供反馈，或者如果你认为文章很好，直接返回[DONE]。
+      请返回你的评论字符串或[DONE]。`.replace(/\s+/g, " ")
     ),
     new HumanMessage(
       `${feedbackInstructions}
-       This is the article: ${state.agentState.article}`
+       这是文章：${state.agentState.article}`
     ),
   ]);
   const content = response.content as string;
-  console.log("critique:", content);
+  console.log("评论：", content);
   return {
     agentState: {
       ...state.agentState,
@@ -129,29 +128,29 @@ async function critique(state: {
 async function write(state: {
   agentState: AgentState;
 }): Promise<{ agentState: AgentState }> {
-  console.log("writing article");
+  console.log("写作文章");
   const response = await model().invoke([
     new SystemMessage(
-      `You are a personal newspaper writer. Your sole purpose is to write a well-written article about a 
-      topic using a list of articles. Write 5 paragraphs in markdown.`.replace(
+      `你是一个私人报纸作家。你的唯一任务是写一篇关于 
+      一个主题的优秀文章，使用文章列表。用markdown格式写5段。`.replace(
         /\s+/g,
         " "
       )
     ),
     new HumanMessage(
-      `Today's date is ${new Date().toLocaleDateString("en-GB")}.
-      Your task is to write a critically acclaimed article for me about the provided query or 
-      topic based on the sources. 
-      Here is a list of articles: ${state.agentState.searchResults}
-      This is the topic: ${state.agentState.topic}
-      Please return a well-written article based on the provided information.`.replace(
+      `今天的日期是 ${new Date().toLocaleDateString("en-GB")}.
+      你的任务是根据提供的查询或
+      主题以及来源写一篇广受好评的文章。
+      这里有一份文章列表：${state.agentState.searchResults}
+      这是主题：${state.agentState.topic}
+      请根据提供的信息返回一篇优秀的文章。`.replace(
         /\s+/g,
         " "
       )
     ),
   ]);
   const content = response.content as string;
-  console.log("article:", content);
+  console.log("文章：", content);
   return {
     agentState: {
       ...state.agentState,
@@ -163,23 +162,23 @@ async function write(state: {
 async function revise(state: {
   agentState: AgentState;
 }): Promise<{ agentState: AgentState }> {
-  console.log("revising article");
+  console.log("修改文章");
   const response = await model().invoke([
     new SystemMessage(
-      `You are a personal newspaper editor. Your sole purpose is to edit a well-written article about a 
-      topic based on given critique.`.replace(/\s+/g, " ")
+      `你是一个私人报纸编辑。你的唯一任务是根据给定评论编辑
+      一篇关于某个主题的优秀文章。`.replace(/\s+/g, " ")
     ),
     new HumanMessage(
-      `Your task is to edit the article based on the critique given.
-      This is the article: ${state.agentState.article}
-      This is the critique: ${state.agentState.critique}
-      Please return the edited article based on the critique given.
-      You may leave feedback about the critique encoded between <FEEDBACK> tags like this:
-      <FEEDBACK> here goes the feedback ...</FEEDBACK>`.replace(/\s+/g, " ")
+      `你的任务是根据给定的评论编辑文章。
+      这是文章：${state.agentState.article}
+      这是评论：${state.agentState.critique}
+      请根据给定的评论返回修改后的文章。
+      你可以在<FEEDBACK>标签之间留下关于评论的反馈，例如：
+      <FEEDBACK> 这里是反馈 ...</FEEDBACK>`.replace(/\s+/g, " ")
     ),
   ]);
   const content = response.content as string;
-  console.log("revised article:", content);
+  console.log("修改后的文章：", content);
   return {
     agentState: {
       ...state.agentState,
@@ -197,7 +196,7 @@ const agentState = {
   },
 };
 
-// Define the function that determines whether to continue or not
+// 定义确定是否继续的函数
 const shouldContinue = (state: { agentState: AgentState }) => {
   const result = state.agentState.critique === undefined ? "end" : "continue";
   return result;
@@ -217,23 +216,22 @@ workflow.addEdge("search", "curate");
 workflow.addEdge("curate", "write");
 workflow.addEdge("write", "critique");
 
-// We now add a conditional edge
+// 现在添加一个条件边
 workflow.addConditionalEdges(
-  // First, we define the start node. We use `agent`.
-  // This means these are the edges taken after the `agent` node is called.
+  // 首先定义起始节点。我们使用 `agent`。
+  // 这意味着这些是 `agent` 节点调用后的边。
   "critique",
-  // Next, we pass in the function that will determine which node is called next.
+  // 接下来传入决定下一个节点调用的函数。
   shouldContinue,
-  // Finally we pass in a mapping.
-  // The keys are strings, and the values are other nodes.
-  // END is a special node marking that the graph should finish.
-  // What will happen is we will call `should_continue`, and then the output of that
-  // will be matched against the keys in this mapping.
-  // Based on which one it matches, that node will then be called.
+  // 最后传入一个映射。
+  // 键是字符串，值是其他节点。
+  // END 是一个特殊节点，表示图应该结束。
+  // 将调用 `should_continue`，然后它的输出将与此映射中的键匹配。
+  // 根据匹配的键，调用相应的节点。
   {
-    // If `tools`, then we call the tool node.
+    // 如果 `tools`，则调用工具节点。
     continue: "revise",
-    // Otherwise we finish.
+    // 否则完成。
     end: END,
   }
 );

@@ -13,12 +13,12 @@ const UNSPLASH_ACCESS_KEY = process.env[UNSPLASH_ACCESS_KEY_ENV];
 const researchAction: Action<any> = {
   name: "research",
   description:
-    "Call this function to conduct research on a certain topic. Respect other notes about when to call this function",
+    "调用此函数对某个主题进行研究。尊重其他关于何时调用此函数的注释",
   parameters: [
     {
       name: "topic",
       type: "string",
-      description: "The topic to research. 5 characters or longer.",
+      description: "研究的主题。5个字符或更长。",
     },
   ],
   handler: async ({ topic }) => {
@@ -31,11 +31,11 @@ export const POST = async (req: NextRequest) => {
   const actions: Action<any>[] = [
     {
       name: "getImageUrl",
-      description: "Get an image url for a topic",
+      description: "获取主题的图像url",
       parameters: [
         {
           name: "topic",
-          description: "The topic of the image",
+          description: "图像的主题",
         },
       ],
       handler: async ({ topic }) => {
@@ -72,7 +72,7 @@ export const POST = async (req: NextRequest) => {
     actions.push(researchAction);
   }
 
-  const openaiModel = process.env["OPENAI_MODEL"];
+  const openaiModel = process.env["OPENAI_MODEL"]; 
 
   console.log("ENV.COPILOT_CLOUD_API_KEY", process.env.COPILOT_CLOUD_API_KEY);
 
@@ -80,6 +80,7 @@ export const POST = async (req: NextRequest) => {
     runtime: new CopilotRuntime({ actions }),
     serviceAdapter: new OpenAIAdapter({ model: openaiModel }),
     endpoint: req.nextUrl.pathname,
+    baseUrl: 'https://api.openai-proxy.com/v1',
   });
 
   return handleRequest(req);
