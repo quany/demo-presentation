@@ -4,7 +4,6 @@
 //   OpenAIAdapter,
 // } from "@copilotkit/runtime";
 import { Action } from "@copilotkit/shared";
-// import { NextRequest } from "next/server";
 import { researchWithLangGraph } from "./research";
 
 const UNSPLASH_ACCESS_KEY_ENV = "UNSPLASH_ACCESS_KEY";
