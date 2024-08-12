@@ -1,11 +1,11 @@
-import { researchWithLangGraph } from "./research";
-import { Action } from "@copilotkit/shared";
-import { NextRequest } from "next/server";
 import {
   CopilotRuntime,
   copilotRuntimeNextJSAppRouterEndpoint,
   OpenAIAdapter,
 } from "@copilotkit/runtime";
+import { Action } from "@copilotkit/shared";
+import { NextRequest, NextResponse } from "next/server";
+import { researchWithLangGraph } from "./research";
 
 const UNSPLASH_ACCESS_KEY_ENV = "UNSPLASH_ACCESS_KEY";
 const UNSPLASH_ACCESS_KEY = process.env[UNSPLASH_ACCESS_KEY_ENV];
@@ -27,7 +27,20 @@ const researchAction: Action<any> = {
   },
 };
 
-export const POST = async (req: NextRequest) => {
+export const POST = async (req: NextRequest, res: NextResponse) => {
+  res.setHeader('Access-Control-Allow-Credentials', true)
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  // another common pattern
+  // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  )
+  if (req.method === 'OPTIONS') {
+    res.status(200).end()
+    return
+  }
   const actions: Action<any>[] = [
     {
       name: "getImageUrl",
