@@ -14,6 +14,7 @@
     "@copilotkit/react-textarea": "1.1.0",
     "@copilotkit/react-ui": "1.1.0",
     "@copilotkit/shared": "1.1.0",
+    "@copilotkit/backend": "^0.37.0",
     "@heroicons/react": "^2.1.1",
     "@langchain/community": "^0.0.29",
     "@langchain/core": "^0.1.29",

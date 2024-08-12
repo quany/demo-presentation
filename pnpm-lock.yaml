@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@copilotkit/backend':
+        specifier: ^0.37.0
+        version: 0.37.0(ignore@5.3.1)(lodash@4.17.21)
       '@copilotkit/react-core':
         specifier: 1.1.0
         version: 1.1.0(ignore@5.3.1)(lodash@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -147,6 +150,9 @@ packages:
     resolution: {integrity: sha512-YTnYtra7W9e6/oAZEHj0bJehPRUlLH9/fbpT5LfB0NhQXyALCRkRs3zH9v07IYhkgpqX6Z78FnuccZr/l4Fs4Q==}
     engines: {node: '>=6.9.0'}
 
+  '@copilotkit/backend@0.37.0':
+    resolution: {integrity: sha512-GXl3FZOFcI+Ws3b+urkcFzb9pVyPkihVIKftJmp7geFDs1eSYy39Iof8RU81rWhHZeOR5sqP0CD3jfaDRW0fnQ==}
+
   '@copilotkit/react-core@1.1.0':
     resolution: {integrity: sha512-59hfCI9HpczyfHNgW+sw/NxjIzyrfpWAGt+9DHBxqzTJoeFVStleL14THmi7MQaBVB7s3+Qkmb1ciEc2Hp28Jw==}
     peerDependencies:
@@ -170,6 +176,9 @@ packages:
 
   '@copilotkit/runtime@1.1.0':
     resolution: {integrity: sha512-FLbsQJUctW2/fw5tyzh7KhvdPscixNOTLJvmCF6bZ5PWVeCHi4xyAdTqUBfd/+Y2P9xl+/QYRL6wr1YOfHtN5Q==}
+
+  '@copilotkit/shared@0.37.0':
+    resolution: {integrity: sha512-ls4PqjxXH7NlK6ibO+4HUMArzv7ZZLhVdnx/JaG9K1b3Bnv0tuQzczu4s12T/AzXv/5FsmEghrBzMWrvUJbx0g==}
 
   '@copilotkit/shared@1.1.0':
     resolution: {integrity: sha512-pBE7cvX4Gnx7yPkcp5sAbODfyVVRR0kmu6Cwue72F64DMS91m/tEOoOSYatAKCBfB4SOpOmwvObh2MbrxeKUsg==}
@@ -4600,6 +4609,140 @@ snapshots:
       '@babel/helper-validator-identifier': 7.24.7
       to-fast-properties: 2.0.0
 
+  '@copilotkit/backend@0.37.0(ignore@5.3.1)(lodash@4.17.21)':
+    dependencies:
+      '@copilotkit/shared': 0.37.0
+      '@google/generative-ai': 0.11.5
+      '@langchain/core': 0.1.63(langchain@0.1.37(ignore@5.3.1)(lodash@4.17.21)(openai@4.55.4(zod@3.23.8)))(openai@4.55.4(zod@3.23.8))
+      '@langchain/openai': 0.0.28(langchain@0.1.37(ignore@5.3.1)(lodash@4.17.21)(openai@4.55.4(zod@3.23.8)))
+      js-tiktoken: 1.0.12
+      langchain: 0.1.37(ignore@5.3.1)(lodash@4.17.21)(openai@4.55.4(zod@3.23.8))
+      openai: 4.55.4(zod@3.23.8)
+      zod: 3.23.8
+    transitivePeerDependencies:
+      - '@aws-crypto/sha256-js'
+      - '@aws-sdk/client-bedrock-agent-runtime'
+      - '@aws-sdk/client-bedrock-runtime'
+      - '@aws-sdk/client-dynamodb'
+      - '@aws-sdk/client-kendra'
+      - '@aws-sdk/client-lambda'
+      - '@aws-sdk/client-s3'
+      - '@aws-sdk/client-sagemaker-runtime'
+      - '@aws-sdk/client-sfn'
+      - '@aws-sdk/credential-provider-node'
+      - '@azure/search-documents'
+      - '@azure/storage-blob'
+      - '@browserbasehq/sdk'
+      - '@clickhouse/client'
+      - '@cloudflare/ai'
+      - '@datastax/astra-db-ts'
+      - '@elastic/elasticsearch'
+      - '@getmetal/metal-sdk'
+      - '@getzep/zep-js'
+      - '@gomomento/sdk'
+      - '@gomomento/sdk-core'
+      - '@gomomento/sdk-web'
+      - '@google-ai/generativelanguage'
+      - '@google-cloud/storage'
+      - '@gradientai/nodejs-sdk'
+      - '@huggingface/inference'
+      - '@mendable/firecrawl-js'
+      - '@mlc-ai/web-llm'
+      - '@mozilla/readability'
+      - '@neondatabase/serverless'
+      - '@notionhq/client'
+      - '@opensearch-project/opensearch'
+      - '@pinecone-database/pinecone'
+      - '@planetscale/database'
+      - '@premai/prem-sdk'
+      - '@qdrant/js-client-rest'
+      - '@raycast/api'
+      - '@rockset/client'
+      - '@smithy/eventstream-codec'
+      - '@smithy/protocol-http'
+      - '@smithy/signature-v4'
+      - '@smithy/util-utf8'
+      - '@supabase/postgrest-js'
+      - '@supabase/supabase-js'
+      - '@tensorflow-models/universal-sentence-encoder'
+      - '@tensorflow/tfjs-converter'
+      - '@tensorflow/tfjs-core'
+      - '@upstash/redis'
+      - '@upstash/vector'
+      - '@vercel/kv'
+      - '@vercel/postgres'
+      - '@writerai/writer-sdk'
+      - '@xata.io/client'
+      - '@xenova/transformers'
+      - '@zilliz/milvus2-sdk-node'
+      - apify-client
+      - assemblyai
+      - axios
+      - better-sqlite3
+      - cassandra-driver
+      - cborg
+      - cheerio
+      - chromadb
+      - closevector-common
+      - closevector-node
+      - closevector-web
+      - cohere-ai
+      - convex
+      - couchbase
+      - d3-dsv
+      - discord.js
+      - dria
+      - duck-duck-scrape
+      - encoding
+      - epub2
+      - faiss-node
+      - fast-xml-parser
+      - firebase-admin
+      - google-auth-library
+      - googleapis
+      - handlebars
+      - hnswlib-node
+      - html-to-text
+      - ignore
+      - interface-datastore
+      - ioredis
+      - it-all
+      - jsdom
+      - jsonwebtoken
+      - llmonitor
+      - lodash
+      - lunary
+      - mammoth
+      - mongodb
+      - mysql2
+      - neo4j-driver
+      - node-llama-cpp
+      - notion-to-md
+      - officeparser
+      - pdf-parse
+      - peggy
+      - pg
+      - pg-copy-streams
+      - pickleparser
+      - playwright
+      - portkey-ai
+      - puppeteer
+      - pyodide
+      - redis
+      - replicate
+      - sonix-speech-recognition
+      - srt-parser-2
+      - typeorm
+      - typesense
+      - usearch
+      - vectordb
+      - voy-search
+      - weaviate-ts-client
+      - web-auth-library
+      - ws
+      - youtube-transcript
+      - youtubei.js
+
   '@copilotkit/react-core@1.1.0(ignore@5.3.1)(lodash@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@copilotkit/runtime-client-gql': 1.1.0(ignore@5.3.1)(lodash@4.17.21)(react@18.3.1)
@@ -5308,6 +5451,8 @@ snapshots:
       - youtube-transcript
       - youtubei.js
 
+  '@copilotkit/shared@0.37.0': {}
+
   '@copilotkit/shared@1.1.0':
     dependencies:
       '@segment/analytics-node': 2.1.2
@@ -5597,7 +5742,7 @@ snapshots:
   '@langchain/community@0.0.53(langchain@0.1.37(ignore@5.3.1)(lodash@4.17.21)(openai@4.55.4(zod@3.23.8)))(lodash@4.17.21)(openai@4.55.4(zod@3.23.8))':
     dependencies:
       '@langchain/core': 0.1.63(langchain@0.1.37(ignore@5.3.1)(lodash@4.17.21)(openai@4.55.4(zod@3.23.8)))(openai@4.55.4(zod@3.23.8))
-      '@langchain/openai': 0.0.28(langchain@0.1.37(ignore@5.3.1)(lodash@4.17.21)(openai@4.55.4(zod@3.23.8)))
+      '@langchain/openai': 0.0.34(langchain@0.1.37(ignore@5.3.1)(lodash@4.17.21)(openai@4.55.4(zod@3.23.8)))
       expr-eval: 2.0.2
       flat: 5.0.2
       langsmith: 0.1.41(@langchain/core@0.1.63(langchain@0.1.37(ignore@5.3.1)(lodash@4.17.21)(openai@4.55.4(zod@3.23.8)))(openai@4.55.4(zod@3.23.8)))(langchain@0.1.37(ignore@5.3.1)(lodash@4.17.21)(openai@4.55.4(zod@3.23.8)))(openai@4.55.4(zod@3.23.8))
@@ -6963,7 +7108,7 @@ snapshots:
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
       eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.57.0))(eslint@8.57.0)
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0)
       eslint-plugin-jsx-a11y: 6.9.0(eslint@8.57.0)
       eslint-plugin-react: 7.35.0(eslint@8.57.0)
       eslint-plugin-react-hooks: 4.6.2(eslint@8.57.0)
@@ -6987,7 +7132,7 @@ snapshots:
       enhanced-resolve: 5.17.1
       eslint: 8.57.0
       eslint-module-utils: 2.8.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0)
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0)
       fast-glob: 3.3.2
       get-tsconfig: 4.7.6
       is-core-module: 2.15.0
@@ -7009,7 +7154,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0):
+  eslint-plugin-import@2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0):
     dependencies:
       array-includes: 3.1.8
       array.prototype.findlastindex: 1.2.5
