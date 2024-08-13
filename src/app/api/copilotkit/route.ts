@@ -27,8 +27,6 @@ const researchAction: Action<any> = {
   },
 };
 
-// export const runtime = "edge";
-
 export async function POST(req: Request): Promise<Response> {
 
   const url = new URL(req.url);
@@ -86,6 +84,5 @@ export async function POST(req: Request): Promise<Response> {
 
     return handleRequest(req);
   }
-
   return new Response("Unauthorized", { status: 401 });
 }
